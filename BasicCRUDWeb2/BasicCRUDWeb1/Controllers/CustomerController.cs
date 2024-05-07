@@ -7,22 +7,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Telerik.Scaffolders.Models.Grid;
-using BasicCRUDWeb1.Models;
- 
+
 namespace Telerik.Scaffolders.Controllers
 {
-    public class GridController : Controller
+    public class CustomerController : Controller
     {
-        public ActionResult GridPage()
+        public ActionResult CustomerPage()
         {
             return View();
         }
         
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
-            var result = Enumerable.Range(1, 50).Select(i => new GridModel
+            var result = Enumerable.Range(1, 50).Select(i => new CustomerModel
             {
-                Id = i,
+                CustomerId = i,
                 Freight = i * 10,
                 OrderDate = new DateTime(2016, 9, 15).AddDays(i % 7),
                 ShipName = "ShipName " + i,
@@ -33,7 +32,7 @@ namespace Telerik.Scaffolders.Controllers
             return Json(dsResult);
         }
 
-        public ActionResult Create([DataSourceRequest] DataSourceRequest request, GridModel model)
+        public ActionResult Create([DataSourceRequest] DataSourceRequest request, CustomerModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -43,7 +42,7 @@ namespace Telerik.Scaffolders.Controllers
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
 
-        public ActionResult Update([DataSourceRequest] DataSourceRequest request, GridModel model)
+        public ActionResult Update([DataSourceRequest] DataSourceRequest request, CustomerModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -53,7 +52,7 @@ namespace Telerik.Scaffolders.Controllers
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
 
-        public ActionResult Delete([DataSourceRequest] DataSourceRequest request, GridModel model)
+        public ActionResult Delete([DataSourceRequest] DataSourceRequest request, CustomerModel model)
         {
             if (model != null && ModelState.IsValid)
             {

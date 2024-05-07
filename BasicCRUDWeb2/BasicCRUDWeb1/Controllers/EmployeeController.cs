@@ -26,7 +26,7 @@ namespace BasicCRUDWeb1.Controllers
         }
 
         // GET: Employee
-        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
+        public ActionResult Employee_Read([DataSourceRequest] DataSourceRequest request)
         {
             var q = db.spGetAllEmployee().ToList();
             List<Employee> list = new List<Employee>();
