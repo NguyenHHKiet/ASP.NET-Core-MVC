@@ -1,0 +1,47 @@
+@*@using Telerik.Scaffolders.Models.Grid
+
+    @(Html.Kendo().Grid<GridModel>()
+        .Name("grid")
+           .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Filterable(false);
+            columns.Bound(p => p.Freight);
+            columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
+            columns.Bound(p => p.ShipName);
+            columns.Bound(p => p.ShipCity);
+        })
+
+            .Resizable(resize => resize.Columns(true))
+            .Pageable()
+            .Sortable()
+            .Reorderable(reorder => reorder.Columns(true))
+            .Filterable()
+            .DataSource(dataSource => dataSource
+                 .Ajax()
+                 .PageSize(20)
+                      .Read(read => read.Action("Read", "Grid"))
+
+        )
+    )*@
+
+@(Html.Kendo().Grid <BasicCRUDWeb1.Models.GridModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.OrderID).Filterable(false);
+            columns.Bound(p => p.Freight);
+            columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
+            columns.Bound(p => p.ShipName);
+            columns.Bound(p => p.ShipCity);
+        })
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .HtmlAttributes(new { style = "height:550px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Read(read => read.Action("Orders_Read", "Grid"))
+            )
+    )
