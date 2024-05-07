@@ -324,7 +324,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -339,7 +338,6 @@
     <Compile Include="Models\ClientViewById_Result.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\Employee.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
     </Compile>
@@ -451,7 +449,7 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\Customer\CustomerPage.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

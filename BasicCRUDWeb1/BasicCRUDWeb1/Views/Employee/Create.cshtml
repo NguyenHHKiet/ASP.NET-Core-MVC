@@ -38,6 +38,11 @@
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        <label for="confirmPassword" class="control-label col-md-2">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required class="form-control">
+        <p id="message"></p>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -63,9 +68,12 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group d-flex gap-2">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-success" />
+            <input type="submit" id="saveBtn" value="Create" class="btn btn-success" />
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="addMoreBtn" style="display: none;" class="btn btn-light">Add More</button>
         </div>
     </div>
 </div>
@@ -78,3 +86,57 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const saveBtn = document.getElementById("saveBtn");
+        const addMoreBtn = document.getElementById("addMoreBtn");
+        const userId = document.getElementById("UserID");
+        const username = document.getElementById("UserName");
+        const password = document.getElementById("Password");
+        const email = document.getElementById("Email");
+        const tel = document.getElementById("Tel");
+        const disable = document.getElementById("Disable");
+
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+
+        confirmPasswordInput.addEventListener("keyup", function () {
+            if (!validatePassword()) {
+                message.textContent = "Passwords do not match";
+            } else {
+                message.textContent = "";
+            }
+        });
+
+        saveBtn.addEventListener("submit", function (e) {
+            // Disable save button
+            saveBtn.disabled = true;
+            saveBtn.style.opacity = "80%";
+            // Show add more button
+            addMoreBtn.style.display = "inline-block";
+        });
+
+        addMoreBtn.addEventListener("click", function () {
+            // Clear all inputs
+            userId.value = ""
+            username.value = ""
+            password.value = ""
+            email.value = ""
+            tel.value = ""
+            disable.value = ""
+            // Hide add more button
+            addMoreBtn.style.display = "none";
+            // Enable save button
+            saveBtn.disabled = false;
+            saveBtn.style.opacity = "100%";
+        });
+
+        function validatePassword() {
+            if (password.value !== confirmPasswordInput.value) {
+                return false;
+            }
+            return true;
+        }
+    });
+</script>
+

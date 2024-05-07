@@ -20,6 +20,7 @@ namespace BasicCRUDWeb1.Controllers
             db = new EmployeeDataAccessLayer();
         }
 
+        // Index page của trang Employee, hiển thị danh sách của Employees
         public ActionResult Index()
         {
             IEnumerable<Employee> emp = db.GetAllEmployee();
@@ -29,6 +30,7 @@ namespace BasicCRUDWeb1.Controllers
         // GET: Employee/Details/5
         public ActionResult Details(string id)
         {
+            //1.Hiện thông tin người sử dụng.
             Employee emp= db.GetEmployeeData(id);
             return View(emp);
         }
@@ -44,21 +46,15 @@ namespace BasicCRUDWeb1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Employee employee)
         {
-            try
-            {
-                // TODO: Add insert logic here
-                db.AddEmployee(employee);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            // TODO: Add insert logic here
+            db.AddEmployee(employee);
+            return View();
         }
 
         // GET: Employee/Edit/5
         public ActionResult Edit(string id)
         {
+            //1.Hiện thông tin người sử dụng.
             Employee employee = db.GetEmployeeData(id);
             return View(employee);
         }
@@ -70,6 +66,7 @@ namespace BasicCRUDWeb1.Controllers
         {
             try
             {
+                //4.Update lại thông tin được sửa vào database       
                 // TODO: Add update logic here
                 db.UpdateEmployee(employee);
                 return RedirectToAction(nameof(Index));
@@ -94,6 +91,7 @@ namespace BasicCRUDWeb1.Controllers
         {
             try
             {
+                //1.Xóa thông tin dòng được chọn.
                 // TODO: Add delete logic here
                 db.DeleteEmployee(employee.UserID);
                 return RedirectToAction(nameof(Index));

@@ -26,27 +26,33 @@ namespace BasicCRUDWeb1.Controllers
         }
 
         // GET: Employee
-        public ActionResult Employee_Read([DataSourceRequest] DataSourceRequest request)
+        public JsonResult Employee_Read([DataSourceRequest] DataSourceRequest request)
         {
-            var q = db.spGetAllEmployee().ToList();
-            List<Employee> list = new List<Employee>();
-            list.Clear();
-
-            q.ForEach(i =>
+            try
             {
-                Employee emp = new Employee
-                {
-                    UserID = i.UserID,
-                    UserName = i.UserName,
-                    Password = i.Password,
-                    Email = i.Email,
-                    Tel = i.Tel,
-                    Disable = i.Disable
-                };
-                list.Add(emp);
-            });
+                var q = db.spGetAllEmployee().ToList();
+                List<Employee> list = new List<Employee>();
+                list.Clear();
 
-            return Json(q.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+                q.ForEach(i =>
+                {
+                    Employee emp = new Employee
+                    {
+                        UserID = i.UserID,
+                        UserName = i.UserName,
+                        Password = i.Password,
+                        Email = i.Email,
+                        Tel = i.Tel,
+                        Disable = i.Disable
+                    };
+                    list.Add(emp);
+                });
+
+                return Json(q.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            } catch(Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Employee/Details/5

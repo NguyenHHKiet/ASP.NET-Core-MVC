@@ -19,6 +19,7 @@ namespace BasicCRUDWeb1.Models
 
     public partial class Employee
     {
+        //UeserID là độc quyền gắn unique tại SQL
         [Key]
         [Required]
         [DisplayName("Mã nhân viên")]
@@ -34,7 +35,7 @@ namespace BasicCRUDWeb1.Models
         [Required]
         public byte Disable { get; set; }
 
-        internal bool IsValidEmail(string email)
+        static internal bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return false;

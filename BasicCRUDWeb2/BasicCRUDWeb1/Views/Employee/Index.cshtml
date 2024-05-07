@@ -1,7 +1,108 @@
 ﻿@model IEnumerable<BasicCRUDWeb1.Models.Employee>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employee";
 }
 
-<h2>Index</h2>
+<h2>List of Employees</h2>
+
+<h4>Telerik UI for ASP.NET MVC DatePicker:</h4>
+
+@(Html.Kendo().DatePicker()
+        .Name("datepicker") // The Name of the DatePicker is mandatory. It specifies the "id" attribute of the component.
+        .Value(DateTime.Today) // Sets the value of the DatePicker.
+    )
+
+<p class="my-2">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+<div class="container">
+    <div class="row">
+        @(Html.Kendo().Grid<BasicCRUDWeb1.Models.Employee>()
+               .Name("Employee_Read")
+               //.Columns(col =>
+               //{
+               //    col.Bound(o => o.UserID).Title("Mã nhân viên").Width(50);
+               //    col.Bound(o => o.UserName).Title("Tên nhân viên").Width(70);
+               //})
+               //.ToolBar(toolbar => toolbar.Columns())
+               //.Pageable()
+               //.Filterable()
+               .Sortable()
+               .Scrollable()
+               .HtmlAttributes(new { style = "height:430px;" })
+               .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Read(read => read.Action("Employee_Read",
+                     "Employee"))
+                )
+            )
+        @*<label for="multiselect">Select Columns to display</label>
+        <input id="multiselect" style="width:50%" />
+        <div id="grid"></div>*@
+    </div>
+</div>
+
+<!--<script>
+    var columns = [{
+        field: "UserID",
+        filterable: false,
+        width: 70
+    }, {
+        field: "UserName",
+        width: 70
+    }, {
+        field: "Email",
+        width: 70
+    }, {
+        field: "Tel",
+        width: 100
+    }, {
+        field: "Disable",
+        width: 40
+    }];
+
+    $("#multiselect").kendoMultiSelect({
+        dataTextField: "field",
+        dataValueField: "field",
+        dataSource: {
+            data: columns
+        },
+        value: ["UserID", "UserName", "Email", "Tel", "Disable"],
+        change: function (e) {
+            var cols = this.value();
+            var grid = $("#grid").data("kendoGrid");
+            grid.setOptions({ columns: cols });
+        }
+    });
+
+    $("#grid").kendoGrid({
+        dataSource: {
+            type: "odata",
+            transport: {
+                read: "http://localhost:57900/Employee/Employee_Read"
+            },
+            schema: {
+                model: {
+                    fields: {
+                        UserID: { type: "string" },
+                        UserName: { type: "string" },
+                        Email: { type: "string" },
+                        Tel: { type: "string" },
+                        Disable: { type: "number" },
+                    }
+                }
+            },
+            pageSize: 20,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        },
+        height: 550,
+        filterable: true,
+        sortable: true,
+        pageable: true,
+        columns: columns
+    });-->
+@*</script>*@

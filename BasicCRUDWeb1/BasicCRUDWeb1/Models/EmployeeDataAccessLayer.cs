@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
+using Telerik.Windows.Documents.Spreadsheet.Expressions.Functions;
 
 namespace BasicCRUDWeb1.Models
 {
@@ -31,7 +32,7 @@ namespace BasicCRUDWeb1.Models
                     Employee.Password = rdr["Password"].ToString();
                     Employee.Email = rdr["Email"].ToString();
                     Employee.Tel = rdr["Tel"].ToString();
-                    Employee.Disable = (byte)Convert.ToInt32(rdr["Disable"]);
+                    Employee.Disable = (byte)System.Convert.ToInt32(rdr["Disable"]);
 
                     lstEmployee.Add(Employee);
                 }
@@ -40,29 +41,39 @@ namespace BasicCRUDWeb1.Models
             return lstEmployee;
         }
 
-        public void AddEmployee(Employee Employee)
+        public void AddEmployee(Employee emp)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            // 1.Kiểm tra bắt buộc nhập mã người dùng và kiểm tra trùng mã người dùng.
+            Employee e = GetEmployeeData(emp.UserID);
+            if (e.UserID == null)
             {
-                SqlCommand cmd = new SqlCommand("spAddEmployee", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@UserID", Employee.UserID.Trim().ToUpper());
-                cmd.Parameters.AddWithValue("@UserName", Employee.UserName);
-                cmd.Parameters.AddWithValue("@Password", Employee.Password);
-                cmd.Parameters.AddWithValue("@Email", Employee.Email);
-                cmd.Parameters.AddWithValue("@Tel", Employee.Tel);
-                cmd.Parameters.AddWithValue("@Disable", Employee.Disable);
-
-                if (Employee.IsValidEmail(Employee.Email))
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-                else
-                {
-                    Console.WriteLine("Địa chỉ email không hợp lệ.");
+                    SqlCommand cmd = new SqlCommand("spAddEmployee", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // 2.Kiểm tra mã người dùng không được nhập khoảng trắng, tự động viết hoa.
+                    cmd.Parameters.AddWithValue("@UserID", emp.UserID.Trim().ToUpper());
+                    // 3.Kiểm tra bắt buộc nhập Tên người dùng: đc gán DataAnnotation Required
+                    cmd.Parameters.AddWithValue("@UserName", emp.UserName);
+                    cmd.Parameters.AddWithValue("@Password", emp.Password);
+
+
+                    cmd.Parameters.AddWithValue("@Email", emp.Email);
+                    cmd.Parameters.AddWithValue("@Tel", emp.Tel);
+                    cmd.Parameters.AddWithValue("@Disable", emp.Disable);
+
+                    // 5.Nếu có nhập Email kiểm tra email có hợp lệ hay không
+                    if (Employee.IsValidEmail(emp.Email))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Địa chỉ email không hợp lệ.");
+                    }
                 }
             }
         }
@@ -106,7 +117,7 @@ namespace BasicCRUDWeb1.Models
                         employee.Password = rdr["Password"].ToString();
                         employee.Email = rdr["Email"].ToString();
                         employee.Tel = rdr["Tel"].ToString();
-                        employee.Disable = (byte)Convert.ToInt32(rdr["Disable"]);
+                        employee.Disable = (byte)System.Convert.ToInt32(rdr["Disable"]);
                     }
                     con.Close();
                 }
