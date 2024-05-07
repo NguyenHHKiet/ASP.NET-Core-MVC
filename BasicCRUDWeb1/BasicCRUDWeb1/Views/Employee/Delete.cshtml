@@ -12,14 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.UserName)
         </dt>
 
@@ -65,8 +57,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger text-white text-decoration-none" /> |
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info text-white text-decoration-none" })
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>

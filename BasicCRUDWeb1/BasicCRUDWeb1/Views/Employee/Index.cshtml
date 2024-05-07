@@ -1,36 +1,51 @@
-﻿
+﻿@model IEnumerable<BasicCRUDWeb1.Models.Employee>
+
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>List of Employees</h2>
 
-<div class="text-center">
-    <h2>Telerik UI DatePicker for ASP.NET Core</h2>
-    @(Html.Kendo().DatePicker()
-            .Name("my-picker")
-        )
-</div>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class= "btn btn-success" })
+</p>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tel)
+        </th>
+        <th></th>
+    </tr>
 
-@(Html.Kendo().Grid <BasicCRUDWeb1.Models.Employee>()
-        .Name("grid")
-        .DataSource(dataSource => dataSource
-            .Ajax()
-            .PageSize(20)
-            .Read(read => read.Action("Read", "Employee"))
-        )
-        .Columns(columns =>
-        {
-            columns.Bound(p => p.UserID);
-            columns.Bound(p => p.UserName);
-            columns.Bound(p => p.Password);
-            columns.Bound(p => p.Email);
-            columns.Bound(p => p.Tel);
-            columns.Bound(p => p.Disable);
-        })
-        .Pageable()
-        .Sortable()
-        .Scrollable()
-        .Filterable()
-        .HtmlAttributes(new { style = "height:550px;" })
-    )
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tel)
+        </td>
+        <td class="d-flex gap-2">
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }, new { @class= "btn btn-info" })
+            @Html.ActionLink("Details", "Details", new { id=item.UserID }, new { @class= "btn btn-warning" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserID }, new { @class= "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

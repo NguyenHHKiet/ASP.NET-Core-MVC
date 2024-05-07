@@ -15,6 +15,7 @@ namespace BasicCRUDWeb1.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Data.Entity.Core.Objects;
 
     public partial class Employee
     {
@@ -26,6 +27,7 @@ namespace BasicCRUDWeb1.Models
         [DisplayName("Tên nhân viên")]
         public string UserName { get; set; }
         public string Password { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
         [DisplayName("Số điện thoại")]
         public string Tel { get; set; }
