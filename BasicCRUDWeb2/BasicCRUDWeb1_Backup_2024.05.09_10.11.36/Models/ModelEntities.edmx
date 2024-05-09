@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="basicTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="tel" Type="nvarchar(max)" />
+          <Property Name="disable" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Tel" Type="varchar(max)" />
+          <Property Name="Disable" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <Function Name="ClientDeleteById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ClientViewAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClientViewById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="CreateClientOrEidt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="nvarchar" Mode="In" />
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="tel" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="disable" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="spAddEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Tel" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Disable" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="spDeleteEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetAllEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetOneEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Tel" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Disable" Type="tinyint" Mode="In" />
+        </Function>
+        <EntityContainer Name="basicTestModelStoreContainer">
+          <EntitySet Name="clients" EntityType="Self.clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="basicTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="disable" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Tel" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Disable" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="basicTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <FunctionImport Name="ClientDeleteById">
+            <Parameter Name="userId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClientViewAll" ReturnType="Collection(basicTestModel.ClientViewAll_Result)" />
+          <FunctionImport Name="ClientViewById" ReturnType="Collection(basicTestModel.ClientViewById_Result)">
+            <Parameter Name="userId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateClientOrEidt">
+            <Parameter Name="userId" Mode="In" Type="String" />
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="tel" Mode="In" Type="String" />
+            <Parameter Name="disable" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spAddEmployee">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Tel" Mode="In" Type="String" />
+            <Parameter Name="Disable" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteEmployee">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetAllEmployee" ReturnType="Collection(basicTestModel.spGetAllEmployee_Result)" />
+          <FunctionImport Name="spGetOneEmployee" ReturnType="Collection(basicTestModel.spGetOneEmployee_Result)">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateEmployee">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Tel" Mode="In" Type="String" />
+            <Parameter Name="Disable" Mode="In" Type="Byte" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ClientViewAll_Result">
+          <Property Type="String" Name="userId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="tel" Nullable="true" />
+          <Property Type="Byte" Name="disable" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ClientViewById_Result">
+          <Property Type="String" Name="userId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="tel" Nullable="true" />
+          <Property Type="Byte" Name="disable" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetAllEmployee_Result">
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Tel" Nullable="true" />
+          <Property Type="Byte" Name="Disable" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetOneEmployee_Result">
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Tel" Nullable="true" />
+          <Property Type="Byte" Name="Disable" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="basicTestModelStoreContainer" CdmEntityContainer="basicTestEntities">
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="basicTestModel.client">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="disable" ColumnName="disable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="basicTestModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ClientDeleteById" FunctionName="basicTestModel.Store.ClientDeleteById" />
+          <FunctionImportMapping FunctionImportName="ClientViewAll" FunctionName="basicTestModel.Store.ClientViewAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="basicTestModel.ClientViewAll_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="disable" ColumnName="disable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClientViewById" FunctionName="basicTestModel.Store.ClientViewById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="basicTestModel.ClientViewById_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="disable" ColumnName="disable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreateClientOrEidt" FunctionName="basicTestModel.Store.CreateClientOrEidt" />
+          <FunctionImportMapping FunctionImportName="spAddEmployee" FunctionName="basicTestModel.Store.spAddEmployee" />
+          <FunctionImportMapping FunctionImportName="spDeleteEmployee" FunctionName="basicTestModel.Store.spDeleteEmployee" />
+          <FunctionImportMapping FunctionImportName="spGetAllEmployee" FunctionName="basicTestModel.Store.spGetAllEmployee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="basicTestModel.spGetAllEmployee_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetOneEmployee" FunctionName="basicTestModel.Store.spGetOneEmployee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="basicTestModel.spGetOneEmployee_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spUpdateEmployee" FunctionName="basicTestModel.Store.spUpdateEmployee" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
