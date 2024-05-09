@@ -4,10 +4,10 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create 뜨ㅔㅣ</h2>
 
 
-<div class="demo-section">
+<div class="container">
+    <h2>Create 뜨ㅔㅣ</h2>
     <div id="validation-success"></div>
     @(Html.Kendo().Form<BasicCRUDWeb1.Models.Employee>()
         .Name("CreateFormEmployee")
@@ -43,10 +43,11 @@
                     i.Add()
                         .Field(f => f.Email)
                         .Label(l => l.Text("Email:"))
-                        .InputHtmlAttributes(new { type = "email" });
+                        .InputHtmlAttributes(new { rqeuired="required", type = "email" });
                     i.Add()
                        .Field(f => f.Tel)
-                       .Label(l => l.Text("Số điện thoại:"));
+                       .Label(l => l.Text("Số điện thoại:"))
+                       .InputHtmlAttributes(new { required = "required" });
                     i.Add()
                         .Field(f => f.Disable)
                         .Label(l => l.Text("Disable:"))
@@ -95,8 +96,7 @@
                     // Xử lý phản hồi từ server (nếu cần)
                     $("#validation-success").html(`<div class='k-messagebox ${response.success ? 'k-messagebox-success' : 'k-messagebox-danger'}'>${response.message}</div>`);
                     if (response.success) {
-                        submitBtn.style.opacity = "0.5";
-                        
+                        submitBtn[0].setAttribute("disabled", "disabled");
                     }
                 },
                 error: function (xhr, status, error) {
@@ -112,6 +112,7 @@
 
     function onFormClear(e) {
         $("#validation-success").html("");
+        submitBtn[0].removeAttribute("disabled");
         console.log(clearBtn);
     }
 
