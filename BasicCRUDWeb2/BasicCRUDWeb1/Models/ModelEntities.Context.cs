@@ -27,86 +27,33 @@ namespace BasicCRUDWeb1.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<client> clients { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-    
-        public virtual int ClientDeleteById(string userId)
-        {
-            var userIdParameter = userId != null ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClientDeleteById", userIdParameter);
-        }
-    
-        public virtual ObjectResult<ClientViewAll_Result> ClientViewAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ClientViewAll_Result>("ClientViewAll");
-        }
-    
-        public virtual ObjectResult<ClientViewById_Result> ClientViewById(string userId)
-        {
-            var userIdParameter = userId != null ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ClientViewById_Result>("ClientViewById", userIdParameter);
-        }
-    
-        public virtual int CreateClientOrEidt(string userId, string username, string password, string email, string tel, Nullable<byte> disable)
-        {
-            var userIdParameter = userId != null ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(string));
-    
-            var usernameParameter = username != null ?
-                new ObjectParameter("username", username) :
-                new ObjectParameter("username", typeof(string));
-    
-            var passwordParameter = password != null ?
-                new ObjectParameter("password", password) :
-                new ObjectParameter("password", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var telParameter = tel != null ?
-                new ObjectParameter("tel", tel) :
-                new ObjectParameter("tel", typeof(string));
-    
-            var disableParameter = disable.HasValue ?
-                new ObjectParameter("disable", disable) :
-                new ObjectParameter("disable", typeof(byte));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateClientOrEidt", userIdParameter, usernameParameter, passwordParameter, emailParameter, telParameter, disableParameter);
-        }
     
         public virtual int spAddEmployee(string userID, string userName, string password, string email, string tel, Nullable<byte> disable)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
-                new ObjectParameter("UserID", "");
+                new ObjectParameter("UserID", typeof(string));
     
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
-                new ObjectParameter("UserName", "");
+                new ObjectParameter("UserName", typeof(string));
     
             var passwordParameter = password != null ?
                 new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", "");
+                new ObjectParameter("Password", typeof(string));
     
             var emailParameter = email != null ?
                 new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", "");
+                new ObjectParameter("Email", typeof(string));
     
             var telParameter = tel != null ?
                 new ObjectParameter("Tel", tel) :
-                new ObjectParameter("Tel", "");
+                new ObjectParameter("Tel", typeof(string));
     
             var disableParameter = disable.HasValue ?
                 new ObjectParameter("Disable", disable) :
-                new ObjectParameter("Disable", 0);
+                new ObjectParameter("Disable", typeof(byte));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddEmployee", userIDParameter, userNameParameter, passwordParameter, emailParameter, telParameter, disableParameter);
         }

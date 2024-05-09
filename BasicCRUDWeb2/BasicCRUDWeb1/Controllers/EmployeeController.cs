@@ -3,12 +3,14 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Telerik.SvgIcons;
 
 namespace BasicCRUDWeb1.Controllers
 {
@@ -22,7 +24,6 @@ namespace BasicCRUDWeb1.Controllers
             employeeDataAccessLayer = new EmployeeDataAccessLayer();
             db = new basicTestEntities();
         }
-
         public ActionResult Index()
         {
             return View();
@@ -61,7 +62,9 @@ namespace BasicCRUDWeb1.Controllers
         // GET: Employee/Details/5
         public ActionResult Details(string id)
         {
+            // Call the stored procedure to get the result
             ObjectResult<spGetOneEmployee_Result> employee = db.spGetOneEmployee(id);
+            // Pass the Employee object to the view
             return View(employee);
         }
 

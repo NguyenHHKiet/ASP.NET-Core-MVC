@@ -6,8 +6,6 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Text.RegularExpressions;
 
 namespace BasicCRUDWeb1.Models
 {
@@ -18,6 +16,7 @@ namespace BasicCRUDWeb1.Models
 
     public partial class Employee
     {
+        //UeserID là độc quyền gắn unique tại SQL
         [Key]
         [Required]
         [DisplayName("Mã nhân viên")]
@@ -26,13 +25,14 @@ namespace BasicCRUDWeb1.Models
         [DisplayName("Tên nhân viên")]
         public string UserName { get; set; }
         public string Password { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
         [DisplayName("Số điện thoại")]
         public string Tel { get; set; }
         [Required]
         public byte Disable { get; set; }
 
-        internal bool IsValidEmail(string email)
+        static internal bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return false;
