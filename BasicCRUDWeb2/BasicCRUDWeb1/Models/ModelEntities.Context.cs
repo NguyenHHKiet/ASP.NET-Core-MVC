@@ -86,27 +86,27 @@ namespace BasicCRUDWeb1.Models
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
-                new ObjectParameter("UserID", typeof(string));
+                new ObjectParameter("UserID", "");
     
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
-                new ObjectParameter("UserName", typeof(string));
+                new ObjectParameter("UserName", "");
     
             var passwordParameter = password != null ?
                 new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
+                new ObjectParameter("Password", "");
     
             var emailParameter = email != null ?
                 new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
+                new ObjectParameter("Email", "");
     
             var telParameter = tel != null ?
                 new ObjectParameter("Tel", tel) :
-                new ObjectParameter("Tel", typeof(string));
+                new ObjectParameter("Tel", "");
     
             var disableParameter = disable.HasValue ?
                 new ObjectParameter("Disable", disable) :
-                new ObjectParameter("Disable", typeof(byte));
+                new ObjectParameter("Disable", 0);
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddEmployee", userIDParameter, userNameParameter, passwordParameter, emailParameter, telParameter, disableParameter);
         }

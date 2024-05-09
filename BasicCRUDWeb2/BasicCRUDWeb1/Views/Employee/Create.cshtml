@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Create 뜨ㅔㅣ</h2>
 
 
 <div class="demo-section">
@@ -23,38 +23,45 @@
                 .Label("Create Form Employee")
                 .Items(i =>
                 {
+
                     i.Add()
                          .Field(f => f.UserID)
-                         .Label(l => l.Text("Mã nhân viên:"));
+                         .Label(l => l.Text("Mã nhân viên:"))
+                         .InputHtmlAttributes(new { required = "required" });
                     i.Add()
                         .Field(f => f.UserName)
-                        .Label(l => l.Text("Tên nhân viên:"));
+                        .Label(l => l.Text("Tên nhân viên:"))
+                        .InputHtmlAttributes(new { required = "required" });
                     i.Add()
                         .Field(f => f.Password)
                         .Label(l => l.Text("Password:"))
-                        .Hint("Hint: enter alphanumeric characters only.")
-                        .EditorTemplateHandler("setPasswordEditor");
+                        .InputHtmlAttributes(new { required = "required", type = "password" });
+                    i.Add()
+                        .Field("ConfirmPassword")
+                        .Label(l => l.Text("Confirm Password:"))
+                        .InputHtmlAttributes(new { required = "required", type = "password" });
                     i.Add()
                         .Field(f => f.Email)
-                        .Label(l => l.Text("Email:"));
+                        .Label(l => l.Text("Email:"))
+                        .InputHtmlAttributes(new { type = "email" });
                     i.Add()
                        .Field(f => f.Tel)
                        .Label(l => l.Text("Số điện thoại:"));
                     i.Add()
                         .Field(f => f.Disable)
-                        .Label(l => l.Text("Disable:"));
+                        .Label(l => l.Text("Disable:"))
+                        .InputHtmlAttributes(new { required = "required" });
+
+                    i.AddAntiForgeryToken();
+
                 });
         })
         .Events(ev => ev.ValidateField("onFormValidateField").Submit("onFormSubmit").Clear("onFormClear"))
     )
 </div>
-
 <script>
-    function setPasswordEditor(container, options) {
-        $('<input type="password" id="Password" name="' + options.field + '" title="Password" required="required" autocomplete="off" aria-labelledby="Password-form-label" data-bind="value: Password" aria-describedby="Password-form-hint"/>')
-            .appendTo(container)
-            .kendoTextBox();
-    }
+    var submitBtn = document.getElementsByClassName("k-form-submit k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary");
+    var clearBtn = document.getElementsByClassName("k-form-clear k-button k-button-md k-rounded-md k-button-solid k-button-solid-base");
 
     function onFormValidateField(e) {
         $("#validation-success").html("");
@@ -62,10 +69,64 @@
 
     function onFormSubmit(e) {
         e.preventDefault();
-        $("#validation-success").html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+        var password = $("#Password").val();
+        var confirmPassword = $("#ConfirmPassword").val();
+
+        if (password == confirmPassword) {
+            var form = $("#CreateFormEmployee");
+
+            // Lấy token từ thẻ input hidden
+            var token = $("input[name='__RequestVerificationToken']").val();
+            // Thêm token vào dữ liệu truyền đi
+            var formData = form.serialize() + "&__RequestVerificationToken=" + token;
+            console.log(formData,
+                form.attr("action"),
+                form.attr("method")
+            )
+
+            //new BasicCRUDWeb1.Models.Employee(parseQueryString(form.serialize())),
+
+            $.ajax({
+                url: form.attr("action"),
+                type: form.attr("method"),
+                data: parseQueryString(formData),
+                success: function (response) {
+                    console.log(response);
+                    // Xử lý phản hồi từ server (nếu cần)
+                    $("#validation-success").html(`<div class='k-messagebox ${response.success ? 'k-messagebox-success' : 'k-messagebox-danger'}'>${response.message}</div>`);
+                    if (response.success) {
+                        submitBtn.style.opacity = "0.5";
+                        
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi (nếu có)
+                    console.log(error);
+                }
+            });
+        } else {
+            alert("Confirm Password must match Password");
+        }
+
     }
 
     function onFormClear(e) {
         $("#validation-success").html("");
+        console.log(clearBtn);
     }
+
+    function parseQueryString(queryString) {
+        var params = queryString.split('&');
+        var result = {};
+        params.forEach(function (param) {
+            var keyValue = param.split('=');
+            var key = decodeURIComponent(keyValue[0]);
+            var value = decodeURIComponent(keyValue[1] || '');
+            if (key != "ConfirmPassword") {
+                result[key] = value;
+            }
+        });
+        return result;
+        }
+
 </script>

@@ -71,17 +71,17 @@ namespace BasicCRUDWeb1.Controllers
         // POST: Employee/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Employee employee)
+        public JsonResult Create([DataSourceRequest] DataSourceRequest request,Employee emp)
         {
             try
             {
-                // TODO: Add insert logic here
-                employeeDataAccessLayer.AddEmployee(employee);
-                return RedirectToAction(nameof(Index));
+
+                db.spAddEmployee(userID: emp.UserID, userName: emp.UserName, password: emp.Password, email: emp.Email, tel: emp.Tel, disable: emp.Disable);
+                return Json(new { success = true, message = "Employee created successfully" });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { success = false, message = "An error occurred: " + ex.Message });
             }
         }
 
