@@ -32,12 +32,6 @@ button {
     font-weight: 600;
 }
 
-.btn-close {
-    padding: 0.7rem 0.7rem;
-    background: #eee;
-    border-radius: 50%;
-}
-
 .overlay {
     position: fixed;
     top: 0;
