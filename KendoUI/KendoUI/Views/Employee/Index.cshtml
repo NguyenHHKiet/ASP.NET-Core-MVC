@@ -1,70 +1,8 @@
 ﻿@using Telerik.Scaffolders.Models.Grid
 
-<style>
-    .modal {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 500px;
-        padding: 1.3rem;
-        min-height: 250px;
-        background-color: white;
-        border: 1px solid #ddd;
-        border-radius: 15px;
-        z-index: 100;
-        left: calc(50% - 250px);
-        top: 5%;
-        height: auto;
-    }
-
-        .modal .flex {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .modal input {
-            padding: 0.7rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-
-        .modal p {
-            font-size: 0.9rem;
-            color: #777;
-            margin: 0.4rem 0 0.2rem;
-        }
-
-    button {
-        cursor: pointer;
-        border: none;
-        font-weight: 600;
-    }
-
-    .btn-close {
-        padding: 0.7rem 0.7rem;
-        background: #eee;
-        border-radius: 50%;
-    }
-
-    .overlay {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(3px);
-        z-index: 1;
-    }
-
-    .hidden {
-        display: none;
-    }
-</style>
+@{
+    ViewBag.Title = "Employee";
+}
 
 <div class="">
     <section class="modal hidden">
@@ -74,7 +12,6 @@
         <div id="validation-success"></div>
         @(Html.Kendo().Form<EmployeeModel>()
                 .Name("CreateFormEmployee")
-                .HtmlAttributes(new { action = "", method = "POST" })
                 .Validatable(v =>
                 {
                     v.ValidateOnBlur(true);
@@ -88,10 +25,12 @@
                         {
                             i.Add()
                                 .Field(f => f.UserID)
-                                .Label(l => l.Text("Mã nhân viên:"));
+                                .Label(l => l.Text("Mã nhân viên:"))
+                                .InputHtmlAttributes(new { required = "required", style= "text-transform: uppercase" });
                             i.Add()
                                 .Field(f => f.UserName)
-                                .Label(l => l.Text("Tên nhân viên:"));
+                                .Label(l => l.Text("Tên nhân viên:"))
+                                .InputHtmlAttributes(new { required = "required" });
                             i.Add()
                                 .Field(f => f.Password)
                                 .Label(l => l.Text("Mật khẩu:"))
@@ -102,10 +41,12 @@
                                 .InputHtmlAttributes(new { required = "required", type = "password" });
                             i.Add()
                                 .Field(f => f.Email)
-                                .Label(l => l.Text("Email:"));
+                                .Label(l => l.Text("Email:"))
+                                .InputHtmlAttributes(new { required = "required" });
                             i.Add()
                                 .Field(f => f.Tel)
-                                .Label(l => l.Text("Số điện thoại:"));
+                                .Label(l => l.Text("Số điện thoại:"))
+                                .InputHtmlAttributes(new { required = "required" });
                             i.Add()
                                 .Field(f => f.Disable)
                                 .Label(l => l.Text("Disable:"))
@@ -122,31 +63,31 @@
                                                 Text = "false", Value = "0"
                                             },
                                         });
-                                });
+                                })
+                                .InputHtmlAttributes(new { required = "required" });
                             i.AddAntiForgeryToken();
                         });
                 }).Events(ev => ev.ValidateField("onFormValidateField").Submit("onFormSubmit").Clear("onFormClear"))
             )
     </section>
     <div class="overlay hidden"></div>
-    <button class="btn btn-open btn-success text-white mb-2">Open Modal</button>
+    <button class="btn btn-open btn-success text-white mb-2">Create</button>
 </div>
 
 
 
 @(Html.Kendo().Grid<EmployeeModel>()
     .Name("employee")
-       .Columns(columns =>
-       {
-           columns.Bound(p => p.UserID).Filterable(false);
-           columns.Bound(p => p.UserName);
-           columns.Bound(p => p.Password);
-           columns.Bound(p => p.Email);
-           columns.Bound(p => p.Tel);
-           columns.Bound(p => p.Disable);
-           columns.Command(command => { command.Edit().Text("Chỉnh sửa"); command.Destroy().Text("Xóa"); }).Width(200);
-       })
-        .Editable(editable => editable.Mode(GridEditMode.PopUp))
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.UserID).Filterable(false);
+            columns.Bound(p => p.UserName);
+            columns.Bound(p => p.Password);
+            columns.Bound(p => p.Email);
+            columns.Bound(p => p.Tel);
+            columns.Bound(p => p.Disable);
+            columns.Command(command => { command.Edit().Text("Chỉnh sửa"); command.Destroy().Text("Xóa"); }).Width(200);
+        })
         .Editable(editable => editable.Mode(GridEditMode.PopUp).ConfirmDelete("Bạn có muốn xóa không?").DisplayDeleteConfirmation("Bạn có muốn xóa không?"))
         //.ToolBar(toolbar =>
         //{
@@ -155,16 +96,25 @@
         .Resizable(resize => resize.Columns(true))
         .Pageable()
         .Sortable()
-        .Scrollable()
+        .Scrollable(a => a.Height("auto"))
         .Reorderable(reorder => reorder.Columns(true))
         .Filterable()
         .ColumnMenu()
         .Groupable()
-        .HtmlAttributes(new { style = "height:430px;" })
+        .HtmlAttributes(new { style = "height:500px;" })
+        .Events(e => e.Edit("hideIdField"))
         .DataSource(dataSource => dataSource
              .Ajax()
              .PageSize(20)
-             .Model(model => model.Id(p => p.UserID))
+             .Model(model =>
+             {
+                 model.Id(gridMainAlias => gridMainAlias.UserID);
+                 model.Field(gridMainAlias => gridMainAlias.UserName);
+                 model.Field(gridMainAlias => gridMainAlias.Password);
+                 model.Field(gridMainAlias => gridMainAlias.Email);
+                 model.Field(gridMainAlias => gridMainAlias.Tel);
+                 model.Field(gridMainAlias => gridMainAlias.Disable);
+             })
              .Read(read => read.Action("Read", "Employee"))
              .Create(update => update.Action("Create", "Employee"))
              .Update(update => update.Action("Update", "Employee"))
@@ -173,6 +123,8 @@
 )
 
 <script>
+    var checkedSubmit = false
+    // Open Modal
     const modal = document.querySelector(".modal");
     const overlay = document.querySelector(".overlay");
     const openModalBtn = document.querySelector(".btn-open");
@@ -185,6 +137,10 @@
     const closeModal = function () {
         modal.classList.add("hidden");
         overlay.classList.add("hidden");
+        $('#CreateFormEmployee').getKendoForm().clear();
+        if (checkedSubmit) {
+            window.location.reload();
+        }
     };
 
     openModalBtn.addEventListener("click", openModal);
@@ -192,13 +148,24 @@
     overlay.addEventListener("click", closeModal);
     document.addEventListener("keydown", function (e) {
         if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-            modalClose();
+            closeModal();
         }
     });
 
-
+    //Create Form Employee Submit
     var submitBtn = document.getElementsByClassName("k-form-submit k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary");
     var clearBtn = document.getElementsByClassName("k-form-clear k-button k-button-md k-rounded-md k-button-solid k-button-solid-base");
+   
+    //'The page has fully loaded'
+    window.addEventListener('load', (event) => {
+        clearBtn[0].textContent = "Nhập tiếp";
+        clearBtn[0].classList.add("d-none");
+    });
+
+    function hideIdField(e) {
+        e.container.find("input:first").prop('disabled', true);
+    }  
+
 
     function onFormValidateField(e) {
         $("#validation-success").html("");
@@ -216,15 +183,16 @@
             var formData = form.serialize() + "&__RequestVerificationToken=" + token;
 
             $.ajax({
-                url: "Create",
-                type: form.attr("method"),
+                url: "Employee/Create",
+                type: "POST",
                 data: parseQueryString(formData),
                 success: function (response) {
-                    console.log(response);
                     // Xử lý phản hồi từ server (nếu cần)
-                    $("#validation-success").html(`<div class='k-messagebox ${response.success ? 'k-messagebox-success' : 'k-messagebox-danger'}'>${response.message}</div>`);
-                    if (response.success) {
+                    checkedSubmit = response.success
+                    $("#validation-success").html(`<div class='k-messagebox ${checkedSubmit ? 'k-messagebox-success' : 'k-messagebox-danger'}'>${response.message}</div>`);
+                    if (checkedSubmit) {
                         submitBtn[0].setAttribute("disabled", "disabled");
+                        clearBtn[0].classList.remove("d-none");
                     }
                 },
                 error: function (xhr, status, error) {
@@ -239,7 +207,7 @@
     function onFormClear(e) {
         $("#validation-success").html("");
         submitBtn[0].removeAttribute("disabled");
-        console.log(clearBtn);
+        clearBtn[0].classList.add("d-none");
     }
 
     function parseQueryString(queryString) {
@@ -248,17 +216,17 @@
         params.forEach(function (param) {
             var keyValue = param.split('=');
             var key = decodeURIComponent(keyValue[0]);
-            var value = decodeURIComponent(keyValue[1] || '');
+            var value = decodeURIComponent(keyValue[1] || '').trim();
             if (key != "ConfirmPassword") {
-                result[key] = value;
+                result[key] = key == "UserID" ? value.toUpperCase() : value;
             }
         });
         return result;
     }
 
     function checkPasswordMatch() {
-        var password = document.getElementById("password").value;
-        var confirmPassword = document.getElementById("confirmPassword").value;
+        var password = $("#Password").val();
+        var confirmPassword = $("#ConfirmPassword").val();
 
         if (password != confirmPassword) {
             alert("Mật khẩu không khớp. Vui lòng nhập lại.");

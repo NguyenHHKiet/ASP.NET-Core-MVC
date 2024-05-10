@@ -7,10 +7,10 @@ namespace Telerik.Scaffolders.Models.Grid
 {
     public class EmployeeModel
     {
-        [Editable(false)]
         [Key]
         [Required]
         [DisplayName("Mã nhân viên")]
+        [Editable(false)]
         public string UserID { get; set; }
         [Required]
         [DisplayName("Tên nhân viên")]
