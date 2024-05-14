@@ -1,2 +1,7 @@
 # ASP.NET-Core-MVC
-learning ASP.NET Core MVC
+
+Learning ASP.NET Core MVC
+
+![image](https://www.oditeksolutions.com/wp-content/uploads/2015/10/ASP2.png)
+
+![image](https://codemag.com/Article/Image/2111062/image1.png)
