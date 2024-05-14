@@ -37,6 +37,7 @@ namespace BasicWindowsFormsApp
         }
         private void EditMenuItem_Click(object sender, System.EventArgs e)
         {
+            //Show form với đối tượng được chỉ định
             _employeeDetail.ShowDialog(this);
         }
         private void gridEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -46,16 +47,17 @@ namespace BasicWindowsFormsApp
         private void gridEmployees_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             _employeeDetail = new EmployeeDetail();
+            userId = gridEmployees.Rows[e.RowIndex].Cells[1].Value.ToString();
+
             _employeeDetail.LoadEmployee(new Employee
             {
-                UserID = gridEmployees.Rows[e.RowIndex].Cells[1].Value.ToString(),
+                UserID = userId,
                 UserName = gridEmployees.Rows[e.RowIndex].Cells[2].Value.ToString(),
                 Password = gridEmployees.Rows[e.RowIndex].Cells[3].Value.ToString(),
                 Email = gridEmployees.Rows[e.RowIndex].Cells[4].Value.ToString(),
                 Tel = gridEmployees.Rows[e.RowIndex].Cells[5].Value.ToString(),
                 Disable = (byte)(gridEmployees.Rows[e.RowIndex].Cells[6].Value as byte?),
             });
-            userId = gridEmployees.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
 
         private void DeleteMenuItem_Click(object sender, System.EventArgs e)

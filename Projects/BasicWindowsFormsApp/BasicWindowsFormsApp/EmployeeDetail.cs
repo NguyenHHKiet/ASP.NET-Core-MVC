@@ -19,6 +19,7 @@ namespace BasicWindowsFormsApp
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+            //kiểm tra có thêm employee thành công mới loading grid table
             if (result)
             {
                 ((Main)this.Owner).PopulateEmployees();
@@ -76,14 +77,15 @@ namespace BasicWindowsFormsApp
             {
                 Employee employee = new Employee
                 {
-                    UserID = _employee != null ? _employee.UserID : txtUserId.Text,
-                    UserName = txtUsername.Text,
-                    Password = txtPassword.Text,
-                    Email = txtEmail.Text,
-                    Tel = txtTel.Text,
+                    UserID = _employee != null ? _employee.UserID : userId,
+                    UserName = username,
+                    Password = password,
+                    Email = email,
+                    Tel = tel,
                     Disable = (byte)(ckbDisable.Checked ? 1 : 0),
                 };
 
+                // Add or Update
                 _businessLogicLayer.SaveEmployee(employee);
                 btnNext.Enabled = txtUserId.Enabled;
 
@@ -108,6 +110,7 @@ namespace BasicWindowsFormsApp
         #endregion
 
         #region PUBLIC METHODS
+        //xóa đi làm mới các fields của form detail
         public void LoadEmployee(Employee employee)
         {
             _employee = employee;
