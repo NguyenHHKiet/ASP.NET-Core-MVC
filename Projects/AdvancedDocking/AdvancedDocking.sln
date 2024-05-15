@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedDocking", "AdvancedDocking\AdvancedDocking.csproj", "{E6C244AE-7DA1-462D-9B4F-5203DCA8F569}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6C244AE-7DA1-462D-9B4F-5203DCA8F569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C244AE-7DA1-462D-9B4F-5203DCA8F569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6C244AE-7DA1-462D-9B4F-5203DCA8F569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6C244AE-7DA1-462D-9B4F-5203DCA8F569}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C441AC1F-D34C-43B7-81DE-F7CC0476ED32}
+	EndGlobalSection
+EndGlobal
