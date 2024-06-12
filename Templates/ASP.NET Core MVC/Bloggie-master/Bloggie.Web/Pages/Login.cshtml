@@ -1,0 +1,36 @@
+﻿@page
+@model Bloggie.Web.Pages.LoginModel
+@{
+}
+
+
+<div class="container mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+
+            <h1 class="mt-5 mb-3 h3">Login</h1>
+
+            <partial name="_Notification">
+
+                <form method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" asp-for="LoginViewModel.Username" required />
+                        <span class="text-danger" asp-validation-for="LoginViewModel.Username"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" asp-for="LoginViewModel.Password" required minlength="6" />
+                        <span class="text-danger" asp-validation-for="LoginViewModel.Password"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn bg-dark text-light">Login</button>
+                    </div>
+
+                </form>
+        </div>
+    </div>
+</div>
