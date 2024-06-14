@@ -16,3 +16,37 @@ Other important features include dynamic content rendering with ViewComponenets,
 -   **_.NET IDENTITY FRAMEWORK_** - Authentication, authorization, cookie-based authentication, role-based UI rendering etc.
 -   **_PAYPAL INTEGRATION_** - Configuring the PayPal checkout library, create and process payments etc.
 -   **_AZURE DEPLOYMENT_** - Deploy your MVC application and your SQL database to azure etc.
+
+## Some of the topics
+
+-   Models vs ViewModels
+
+-   Views vs PartialViews
+
+-   SQL server configuration with Entity framework
+
+-   Entity Framework migrations
+
+-   Adding, Getting, Updating and Deleting data from an SQL database using Entity Framework
+
+-   Working with relational and non-relational data
+
+-   Dependency injection
+
+-   Major dependency injection lifetimes
+
+-   Static and generic services/repositories
+
+-   Model binding and validation
+
+-   Routing
+
+-   Cookie-based authentication
+
+-   Role-based authorization
+
+-   Role-based UI rendering
+
+-   Dynamic rendering with ViewComponents
+
+-   Online payments using Paypal SDK
