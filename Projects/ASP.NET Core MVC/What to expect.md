@@ -7,6 +7,11 @@
     -   A `Controller` will _receive the events_, then we'll prepare a response and then just _return the response to the view_. A controller is just a c sharp class that inherits from the controller base class.
 
 -   **DbContext file**
+
+    -   The `Dbcontext` file is also known as the translator file because it serves as a _translator between your models and the database_.
+
+    So let us say you have a `model`, and then on the other side you have the `database`. And then we have said that we use the model to send data to the database or get data from the database. But for the database, which in this case is going to be an SQL database to understand the C-sharp code and vice versa, you need to have a file in between. And that is going to be the `Dbcontext` file, which understands both _C-sharp_ and _SQL_.
+
 -   **CRUD data using EFCore**
 -   **Services**
 -   **ViewComponents**
@@ -17,4 +22,3 @@
 -   **Routing**
 -   **Model validation**
 -   **Tag helpers**
--   etc...
