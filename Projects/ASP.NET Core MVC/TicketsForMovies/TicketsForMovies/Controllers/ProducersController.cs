@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TicketsForMovies.Data.Services.Producers;
+using TicketsForMovies.Models;
 
 namespace TicketsForMovies.Controllers
 {
@@ -25,5 +26,23 @@ namespace TicketsForMovies.Controllers
             if (producerDetails == null) return View("NotFound");
             return View(producerDetails);
         }
+
+        //GET: producers/create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Bio")] Producer producer)
+        {
+            if (!ModelState.IsValid) return View(producer);
+
+            await _services.AddAsync(producer);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
     }
 }
