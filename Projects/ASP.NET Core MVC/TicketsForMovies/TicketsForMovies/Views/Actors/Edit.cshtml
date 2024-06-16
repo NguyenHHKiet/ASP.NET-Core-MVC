@@ -1,0 +1,55 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "Update actor";
+}
+
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <fieldset>
+                <legend>Update Actor</legend>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group text-center mb-3">
+                    <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="ProfilePictureURL" class="form-label"></label>
+                    <input asp-for="ProfilePictureURL" class="form-control" />
+                    <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Bio" class="form-label"></label>
+                    <input asp-for="Bio" class="form-control" />
+                    <span asp-validation-for="Bio" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-outline-success float-end" />
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#ProfilePictureURL").val();
+        })
+
+        $("#ProfilePictureURL").on("change", function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $(this).val();
+        })
+    </script>
+}
