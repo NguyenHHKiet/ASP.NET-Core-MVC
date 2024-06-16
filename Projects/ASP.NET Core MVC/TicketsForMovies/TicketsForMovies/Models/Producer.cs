@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TicketsForMovies.Data.Base;
 
 namespace TicketsForMovies.Models
 {
     // Define your entity classes
-    public class Producer
+    public class Producer : IEntityBase
     {
         [Key]
         public int Id { get; set; }

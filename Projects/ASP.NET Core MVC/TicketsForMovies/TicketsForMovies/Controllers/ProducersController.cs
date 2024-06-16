@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TicketsForMovies.Data;
+using TicketsForMovies.Data.Services.Producers;
 
 namespace TicketsForMovies.Controllers
 {
     public class ProducersController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IProducersServices _services;
 
-        public ProducersController(AppDbContext context)
+        public ProducersController(IProducersServices services)
         {
-            _context = context;
+            _services = services;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allProducers = await _context.Producers.ToListAsync();
+            var allProducers = await _services.GetAllAsync();
             return View(allProducers);
         }
     }

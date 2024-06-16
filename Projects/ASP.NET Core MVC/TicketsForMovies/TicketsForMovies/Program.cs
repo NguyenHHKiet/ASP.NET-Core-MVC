@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TicketsForMovies.Data;
 using TicketsForMovies.Data.Services.Actors;
+using TicketsForMovies.Data.Services.Producers;
 
 /*
  * Builder
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 
 // Services configuration
 builder.Services.AddScoped<IActorsServices, ActorsServices>();
+builder.Services.AddScoped<IProducersServices, ProducersServices>();
 
 builder.Services.AddControllersWithViews();
 
