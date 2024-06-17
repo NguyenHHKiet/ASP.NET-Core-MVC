@@ -42,7 +42,26 @@ namespace TicketsForMovies.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //GET: producers/edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var producerDetails = await _services.GetByIdAsync(id);
+            if (producerDetails == null) return View("NotFound");
+            return View(producerDetails);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Producer producer)
+        {
+            if (!ModelState.IsValid) return View(producer);
+
+            if (id == producer.Id)
+            {
+                await _services.UpdateAsync(id, producer);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producer);
+        }
 
     }
 }
