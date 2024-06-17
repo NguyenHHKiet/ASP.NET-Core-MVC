@@ -1,0 +1,50 @@
+﻿@model Producer
+
+@{
+    ViewData["Title"] = "Delete producer";
+}
+
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <fieldset>
+            <legend>Delete confirmation for @Model.FullName</legend>
+
+            <div class="form-group text-center mb-3">
+                <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProfilePictureURL" class="form-label"></label>
+                <input asp-for="ProfilePictureURL" class="form-control" />
+                <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Bio" class="form-label"></label>
+                <input asp-for="Bio" class="form-control" />
+                <span asp-validation-for="Bio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Confirm" class="btn btn-danger float-end" />
+                </form>
+                <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#ProfilePictureURL").val();
+        })
+    </script>
+}
